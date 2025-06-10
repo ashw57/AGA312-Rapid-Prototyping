@@ -767,7 +767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasPowerup: 0
   powerupIndicator: {fileID: 487252314}
-  speed: 2.5
+  speed: 2
 --- !u!1001 &1891881520
 PrefabInstance:
   m_ObjectHideFlags: 0

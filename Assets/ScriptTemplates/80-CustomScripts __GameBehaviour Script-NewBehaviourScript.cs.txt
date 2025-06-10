@@ -1,0 +1,34 @@
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+
+public class #SCRIPTNAME# : GameBehaviour
+{
+   #region Variables
+   #NOTRIM#
+   #endregion Variables
+
+   #region Unity Functions
+   private void Start()
+   {
+   #NOTRIM#
+   }
+   private void Update()
+   {
+   #NOTRIM#
+   }
+   #endregion Unity Functions
+
+   #region Public Functions
+   #NOTRIM#
+   #endregion Public Functions
+
+   #region Private Functions
+   #NOTRIM#
+   #endregion Private Functions
+
+   #region Events
+   #NOTRIM#
+   #endregion Events
+}
+
