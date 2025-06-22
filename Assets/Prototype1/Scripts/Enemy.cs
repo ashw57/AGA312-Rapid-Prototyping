@@ -3,12 +3,20 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed;
+    public int scoreValue = 10;
+
     private Rigidbody enemyRb;
     private GameObject player;
+    private GameManager gameManager;
 
-    void Start() { 
+    [System.Obsolete]
+    void Start() 
+    { 
         enemyRb = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player"); }
+        player = GameObject.Find("Player");
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     void Update() 
     {
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;
@@ -17,6 +25,7 @@ public class Enemy : MonoBehaviour
 
         if(transform.position.y < -10)
         {
+            gameManager.UpdateScore(scoreValue);
             Destroy(gameObject);
         }
     }

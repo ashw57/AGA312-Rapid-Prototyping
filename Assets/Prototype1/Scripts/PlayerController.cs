@@ -13,16 +13,25 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 5.0f;
 
+    public float threshold;
+
     void Start() { 
         playerRb = GetComponent<Rigidbody>();
         focalPoint = GameObject.Find("Focal Point"); }
-    
+
+    private void FixedUpdate()
+    {
+        if(transform.position.y < threshold)
+        {
+            transform.position = new Vector3(0.41f, 2.32f, 0.005f);
+        }
+    }
     void Update() 
     {
         float forwardInput = Input.GetAxis("Vertical");
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
 
-        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);    
     }
 
     private void OnTriggerEnter(Collider other)
