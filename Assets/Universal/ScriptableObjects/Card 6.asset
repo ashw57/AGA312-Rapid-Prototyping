@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b8ccddb6ac8d245a0beadab4e2f0be, type: 3}
   m_Name: Card 6
   m_EditorClassIdentifier: 
-  suit: 0
-  value: 1
-  colour: {r: 0, g: 0, b: 0, a: 0}
-  description: 
+  cardID: 5
+  suite: 0
+  value: 10
+  colour: {r: 0.028301895, g: 0.020425424, b: 0.020425424, a: 0.4627451}
+  description: Keyboard is broken
   icon: {fileID: 0}

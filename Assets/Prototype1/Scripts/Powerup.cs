@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public enum PowerUpType { None, Pushback, Smash }
-
-public class Powerup : MonoBehaviour
+namespace Prototype1
 {
-    public PowerUpType powerUpType;
+    public enum PowerUpType { None, Pushback, Smash }
+
+    public class Powerup : MonoBehaviour
+    {
+        public PowerUpType powerUpType;
+    }
 }

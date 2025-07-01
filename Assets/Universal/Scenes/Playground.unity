@@ -200,6 +200,60 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fd5555088952419ebf0eb82e9096fa5, type: 3}
+--- !u!1 &442114962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 442114964}
+  - component: {fileID: 442114963}
+  m_Layer: 0
+  m_Name: CardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &442114963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442114962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8c7501c638544cb2b0b582a176454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData:
+  - {fileID: 11400000, guid: c85f8006455d62748aeb99007861626d, type: 2}
+  - {fileID: 11400000, guid: c7b3714a7edd326438ffa9a2ad638794, type: 2}
+  - {fileID: 11400000, guid: a354b714662e000459b3f15e2448826b, type: 2}
+  - {fileID: 11400000, guid: 70e2631f4f9c6124dafccba58586fb69, type: 2}
+  - {fileID: 11400000, guid: 16adfbbdd7b86a842b2a529c6e10b4a1, type: 2}
+  - {fileID: 11400000, guid: 0eb2409a81d327649b4d8147684daa20, type: 2}
+  cardPrefab: {fileID: 5390281842817019110, guid: 0c1f2e8fcb6997642bad8cbb501d76e7, type: 3}
+  cardsInHand: []
+  handCount: 4
+--- !u!4 &442114964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442114962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &565505519
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,3 +841,4 @@ SceneRoots:
   - {fileID: 1753088200}
   - {fileID: 1680518380}
   - {fileID: 565505521}
+  - {fileID: 442114964}

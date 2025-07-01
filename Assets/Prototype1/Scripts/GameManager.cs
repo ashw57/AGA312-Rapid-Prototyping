@@ -1,8 +1,8 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Prototype2
+namespace Prototype1
 {
     public class GameManager : MonoBehaviour
     {
@@ -80,4 +80,5 @@ namespace Prototype2
             Application.Quit();
         }
     }
+
 }

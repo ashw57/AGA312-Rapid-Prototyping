@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b8ccddb6ac8d245a0beadab4e2f0be, type: 3}
   m_Name: Card 5
   m_EditorClassIdentifier: 
-  suit: 0
-  value: 1
-  colour: {r: 0, g: 0, b: 0, a: 0}
-  description: 
+  cardID: 4
+  suite: 0
+  value: 4
+  colour: {r: 0.754717, g: 0.13725491, b: 0.15686275, a: 0.5176471}
+  description: Vehehehe
   icon: {fileID: 0}

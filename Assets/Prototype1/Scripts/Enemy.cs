@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Prototype2
+namespace Prototype1
 {
-    public class SpawnManager : MonoBehaviour
+    public class Enemy : MonoBehaviour
     {
         public GameObject[] enemyPrefab;
         private float spawnRange = 9.0f;
@@ -44,8 +44,8 @@ namespace Prototype2
 
             return randomPos;
         }
-
-
-
     }
 }
+
+
+
