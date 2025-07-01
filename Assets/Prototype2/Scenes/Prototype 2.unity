@@ -1701,7 +1701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7347c0d7eea42848936dde457c9cb45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   threshold: 0
   resetPosition: {x: 0.41, y: 2.32, z: 0.005}
 --- !u!136 &1661533544
@@ -2519,10 +2519,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 5890696970872905, guid: 320503f95e1517940ba2145c3ae3d2e3, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 589007507303848842, guid: 320503f95e1517940ba2145c3ae3d2e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2533,7 +2529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 589007507303848842, guid: 320503f95e1517940ba2145c3ae3d2e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.94
+      value: 1.73
       objectReference: {fileID: 0}
     - target: {fileID: 589007507303848842, guid: 320503f95e1517940ba2145c3ae3d2e3, type: 3}
       propertyPath: m_LocalRotation.w
