@@ -30,7 +30,7 @@ namespace Prototype2
 
         void Update()
         {
-           if (Input.GetKeyDown(KeyCode.Space))
+           if (hasPickup && Input.GetKeyDown(KeyCode.Space))
             {
                 Shoot();
             } 
