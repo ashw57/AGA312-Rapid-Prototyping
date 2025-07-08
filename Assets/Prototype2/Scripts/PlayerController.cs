@@ -6,7 +6,7 @@ namespace Prototype2
     public class PlayerController : MonoBehaviour
     {
         private Rigidbody playerRb;
-        private GameObject focalPoint;
+        private Transform focalPoint;
 
         public float speed = 5.0f;
         public float threshold;
@@ -15,30 +15,31 @@ namespace Prototype2
         void Start()
         {
             playerRb = GetComponent<Rigidbody>();
-            focalPoint = GameObject.Find("Focal Point");
+            focalPoint = Camera.main.transform;
 
             playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
 
-        private void FixedUpdate()
+        void FixedUpdate()
         {
             if (transform.position.y < threshold)
             {
                 transform.position = resetPosition;
                 playerRb.angularVelocity = Vector3.zero;
-                playerRb.angularVelocity = Vector3.zero;
+                
             }
-        }
-        void Update()
-        {
+
             float forwardInput = Input.GetAxis("Vertical");
             float horizontalInput = Input.GetAxis("Horizontal");
 
-            Vector3 moveDirection = (focalPoint.transform.forward * forwardInput +
-                                     focalPoint.transform.right * horizontalInput).normalized;
+            Vector3 forward = Vector3.ProjectOnPlane(focalPoint.forward, Vector3.up).normalized;
+            Vector3 right = Vector3.ProjectOnPlane(focalPoint.right, Vector3.up).normalized;
+
+            Vector3 moveDirection = (forward * forwardInput + right * horizontalInput).normalized;
 
             playerRb.AddForce(moveDirection * speed);
         }
+      
 
 
     }

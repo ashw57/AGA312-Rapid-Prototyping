@@ -22,6 +22,8 @@ namespace Prototype2
             UpdateTime(timeRemaining);
             gameOverText.gameObject.SetActive(false);
 
+            UpdateCursorState(true); // Lock and hide cursor once gameplay commences
+
         }
 
 
@@ -57,9 +59,25 @@ namespace Prototype2
             gameOverText.gameObject.SetActive(true);
             gameOverUI.gameObject.SetActive(true);
 
+            UpdateCursorState(false); //Unlock and show cursor and make game over menu accessible
+
             if (timeRemaining <= 0)
             {
                 Time.timeScale = 0;
+            }
+        }
+
+        private void UpdateCursorState(bool isGameRunning)
+        {
+            if (isGameRunning)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
 
@@ -68,11 +86,6 @@ namespace Prototype2
             Time.timeScale = 1;
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
-        public void Pause()
-        {
-            Time.timeScale = Time.timeScale == 0 ? 1 : 0;
         }
 
         public void Quit()
