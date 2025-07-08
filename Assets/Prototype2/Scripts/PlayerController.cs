@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Prototype2
 {
@@ -12,12 +13,39 @@ namespace Prototype2
         public float threshold;
         public Vector3 resetPosition = new Vector3(0.41f, 2.32f, 0.005f);
 
+        public bool hasPickup = false;
+        public float pickupDuration = 5f;
+
+        public GameObject projectilePrefab;
+        public Transform projectileSpawnPoint;
+        public float projectileForce = 10f;
+
         void Start()
         {
             playerRb = GetComponent<Rigidbody>();
             focalPoint = Camera.main.transform;
 
             playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        }
+
+        void Update()
+        {
+           if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Shoot();
+            } 
+        }
+
+        private void Shoot()
+        {
+            GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+            Rigidbody projRb = projectile.GetComponent<Rigidbody>();
+
+            if (projRb != null)
+            {
+                 projRb.AddForce(projectileSpawnPoint.forward * projectileForce, ForceMode.Impulse);
+            }      
+
         }
 
         void FixedUpdate()
@@ -39,8 +67,37 @@ namespace Prototype2
 
             playerRb.AddForce(moveDirection * speed);
         }
-      
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Pickup"))
+            {          
+                Destroy(other.gameObject);
+                StartCoroutine(PickupCountdown());
+            }
+        }
+
+        private IEnumerator PickupCountdown()
+        {
+            hasPickup = true;
+
+            GetComponent<Renderer>().material.color = Color.green;
+
+            yield return new WaitForSeconds(pickupDuration);
+
+            hasPickup = false;
+
+            GetComponent<Renderer>().material.color = Color.grey;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Enemy") && hasPickup)
+            {
+                Destroy(collision.gameObject);
+                hasPickup = false;
+            }
+        }
 
     }
 }
