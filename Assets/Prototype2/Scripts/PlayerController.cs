@@ -16,6 +16,8 @@ namespace Prototype2
         {
             playerRb = GetComponent<Rigidbody>();
             focalPoint = GameObject.Find("Focal Point");
+
+            playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
 
         private void FixedUpdate()

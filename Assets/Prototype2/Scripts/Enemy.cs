@@ -5,7 +5,7 @@ namespace Prototype2
 {
     public class Enemy : MonoBehaviour
     {
-        public float speed;
+        public float speed = 5.0f;
         public int scoreValue = 10;
 
         private Rigidbody enemyRb;
@@ -25,15 +25,15 @@ namespace Prototype2
                 float randomX = Random.Range(-1f, 1f);
                 float randomZ = Random.Range(-1f, 1f);
                 moveDirection = new Vector3(randomX, 0, randomZ);
-            } while (moveDirection == Vector3.zero);
+            } while (moveDirection.magnitude < 0.1f);
 
             moveDirection.Normalize();
         }
 
         void FixedUpdate()
         {
-            // Move the enemy in therandom direction
-            enemyRb.AddForce(moveDirection * speed);
+            // Move the enemy in a random direction
+            enemyRb.AddForce(moveDirection * speed, ForceMode.VelocityChange);
         }
 
         private void OnCollisionEnter(Collision collision)
