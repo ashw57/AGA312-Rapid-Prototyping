@@ -8,7 +8,7 @@ namespace Prototype3
     {
        // [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI gameOverText;
-        [SerializeField] private TextMeshProUGUI timer;
+        //[SerializeField] private TextMeshProUGUI timer;
         [SerializeField] private GameObject gameOverUI;
 
         public int score;
@@ -16,40 +16,41 @@ namespace Prototype3
 
         private bool gameEnded = false;
 
-        void Start()
+        /*void Start()
         {
-            //UpdateScore(0);
-            UpdateTime(timeRemaining);
-            gameOverText.gameObject.SetActive(false);
+           //UpdateScore(0);
+           UpdateTime(timeRemaining);
+           gameOverText.gameObject.SetActive(false);
 
-        }
+       }
+      /*
 
 
-        void Update()
-        {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                UpdateTime(timeRemaining);
-            }
-            else if (!gameEnded)
-            {
-                UpdateTime(0);
-                GameOver();
-            }
-        }
+      /* void Update()
+       {
+           if (timeRemaining > 0)
+           {
+               timeRemaining -= Time.deltaTime;
+               UpdateTime(timeRemaining);
+           }
+           else if (!gameEnded)
+           {
+               UpdateTime(0);
+               GameOver();
+           }
+       }*/
 
-       // public void UpdateScore(int scoreToAdd)
+        // public void UpdateScore(int scoreToAdd)
         //{
-            //score += scoreToAdd;
-            //scoreText.text = "Score: " + score;
+        //score += scoreToAdd;
+        //scoreText.text = "Score: " + score;
         //}
 
-        public void UpdateTime(float timeLeft)
-        {
-            timer.text = "Time remaining: " + Mathf.CeilToInt(timeLeft) + "s";
-        }
-
+        /* public void UpdateTime(float timeLeft)
+         {
+             timer.text = "Time remaining: " + Mathf.CeilToInt(timeLeft) + "s";
+         }
+        */
         public void GameOver()
         {
             gameEnded = true;
