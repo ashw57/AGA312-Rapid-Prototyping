@@ -6,7 +6,7 @@ namespace Prototype3
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI scoreText;
+       // [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI gameOverText;
         [SerializeField] private TextMeshProUGUI timer;
         [SerializeField] private GameObject gameOverUI;
@@ -18,7 +18,7 @@ namespace Prototype3
 
         void Start()
         {
-            UpdateScore(0);
+            //UpdateScore(0);
             UpdateTime(timeRemaining);
             gameOverText.gameObject.SetActive(false);
 
@@ -39,11 +39,11 @@ namespace Prototype3
             }
         }
 
-        public void UpdateScore(int scoreToAdd)
-        {
-            score += scoreToAdd;
-            scoreText.text = "Score: " + score;
-        }
+       // public void UpdateScore(int scoreToAdd)
+        //{
+            //score += scoreToAdd;
+            //scoreText.text = "Score: " + score;
+        //}
 
         public void UpdateTime(float timeLeft)
         {

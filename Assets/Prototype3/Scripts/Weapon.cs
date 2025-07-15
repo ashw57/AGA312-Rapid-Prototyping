@@ -6,6 +6,9 @@ namespace Prototype3
     {
         public Transform gunTip;
         public GameObject prefab;
+        public GameObject Crosshair;
+
+        public ParticleSystem muzzleFlash;
 
         void Update()
         {
@@ -17,7 +20,12 @@ namespace Prototype3
 
         void Shoot()
         {
-            Instantiate(prefab, gunTip.position, Quaternion.identity);
+            if (muzzleFlash != null)
+                muzzleFlash.Play();
+
+            Vector3 shootDirection = (Crosshair.transform.position - gunTip.position).normalized;
+
+             Instantiate(prefab, gunTip.position, Quaternion.LookRotation(shootDirection));
         }
     }
 }
