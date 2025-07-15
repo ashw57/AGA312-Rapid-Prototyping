@@ -16,6 +16,15 @@ namespace Prototype3
             {
                 Shoot();
             }
+
+            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hitinfo, 20f))
+            {
+                print("Hit Something");
+            }
+            else
+            {
+                print("Hit Nothing");
+            }
         }
 
         void Shoot()

@@ -18,13 +18,7 @@ namespace Prototype3
             transform.position += transform.forward * speed * Time.deltaTime;
         }
 
-        void OnTriggerEnter(Collider other)
-        {
-            if(other.CompareTag("Target"))
-            {
-                Destroy(other.gameObject);
-            }
-        }
+
 
         void Die()
         {

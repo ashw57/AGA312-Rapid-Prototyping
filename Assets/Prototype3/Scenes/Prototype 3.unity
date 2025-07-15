@@ -240,7 +240,7 @@ Transform:
   m_GameObject: {fileID: 191516464}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: -0.12, z: 2.803}
+  m_LocalPosition: {x: -0.017, y: 0.42, z: 8.28}
   m_LocalScale: {x: 5.4609094, y: 4.8427563, z: 1.3442488}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -753,8 +753,8 @@ Transform:
   m_GameObject: {fileID: 602371095}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.019111995, y: -0.047451057, z: -0.2794917}
-  m_LocalScale: {x: 0.21495944, y: 0.39202997, z: 1.961426}
+  m_LocalPosition: {x: 0.761, y: -0.047451057, z: -0.2794917}
+  m_LocalScale: {x: 0.3519316, y: 0.52759147, z: 1.961426}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1523240066}
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunTip: {fileID: 1523240066}
-  prefab: {fileID: 7157580984657804559, guid: f7488d8d454f08646a48f0e0abcb1320, type: 3}
+  prefab: {fileID: 1367179893800070680, guid: 286cce119a0b8e6439a41897d6a5826b, type: 3}
   Crosshair: {fileID: 191516464}
   muzzleFlash: {fileID: 0}
 --- !u!1 &609871870
@@ -1261,7 +1261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &691343948
 RectTransform:
   m_ObjectHideFlags: 0
