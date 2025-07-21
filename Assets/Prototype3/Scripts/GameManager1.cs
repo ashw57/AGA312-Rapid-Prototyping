@@ -6,6 +6,10 @@ namespace Prototype3
 {
     public enum GameState { Start, Playing, Paused, GameOver}
 
+    public enum TargetState { Alive, Die,
+        Moving
+    }
+
     public class GameManager : Singleton<GameManager>
     {
        // [SerializeField] private TextMeshProUGUI scoreText;

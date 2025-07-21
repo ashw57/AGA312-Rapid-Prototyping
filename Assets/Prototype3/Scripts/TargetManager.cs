@@ -51,8 +51,12 @@ namespace Prototype3
             int rndSpawn = Random.Range(0, spawnPoints.Length);
             GameObject target = Instantiate(targetTypes[rndEnemy], spawnPoints[rndSpawn].transform.position, spawnPoints[rndSpawn].transform.rotation);
 
-            targets.Add(target.GetComponent<Target>());
-
+            Target targetComp = target.GetComponent<Target>();
+            if (target != null)
+            {
+                targetComp.Initialize(spawnPoints[rndSpawn], $"Target_{targets.Count + 1}");
+                targets.Add(targetComp);
+            }
         }
     }
 }
