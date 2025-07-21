@@ -4,53 +4,24 @@ using UnityEngine.SceneManagement;
 
 namespace Prototype3
 {
-    public class GameManager : MonoBehaviour
+    public enum GameState { Start, Playing, Paused, GameOver}
+
+    public class GameManager : Singleton<GameManager>
     {
        // [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI gameOverText;
         //[SerializeField] private TextMeshProUGUI timer;
         [SerializeField] private GameObject gameOverUI;
 
-        public int score;
+        [SerializeField] private GameState gameState;
+        [SerializeField] private int score;
+
+        public GameState GameState => gameState;
+
         public float timeRemaining = 60;
 
         private bool gameEnded = false;
 
-        /*void Start()
-        {
-           //UpdateScore(0);
-           UpdateTime(timeRemaining);
-           gameOverText.gameObject.SetActive(false);
-
-       }
-      /*
-
-
-      /* void Update()
-       {
-           if (timeRemaining > 0)
-           {
-               timeRemaining -= Time.deltaTime;
-               UpdateTime(timeRemaining);
-           }
-           else if (!gameEnded)
-           {
-               UpdateTime(0);
-               GameOver();
-           }
-       }*/
-
-        // public void UpdateScore(int scoreToAdd)
-        //{
-        //score += scoreToAdd;
-        //scoreText.text = "Score: " + score;
-        //}
-
-        /* public void UpdateTime(float timeLeft)
-         {
-             timer.text = "Time remaining: " + Mathf.CeilToInt(timeLeft) + "s";
-         }
-        */
         public void GameOver()
         {
             gameEnded = true;
@@ -79,6 +50,12 @@ namespace Prototype3
         public void Quit()
         {
             Application.Quit();
+        }
+
+        public void AddScore(int _score)
+        {
+            score += _score;
+            _UI.UpdateScore(score);
         }
     }
 

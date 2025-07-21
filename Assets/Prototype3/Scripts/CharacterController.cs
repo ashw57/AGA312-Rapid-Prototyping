@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using System.Collections;
+
 namespace Prototype3
 {
-    public class CharacterController : MonoBehaviour
+    public class CharacterController : Singleton<CharacterController>
     {
         [System.Serializable]
         public class MouseSettings

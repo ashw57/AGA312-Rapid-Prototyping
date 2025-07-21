@@ -3,14 +3,15 @@ using UnityEngine;
 
 namespace Prototype3
 {
-    public class Projectiles : MonoBehaviour
+    public class Projectiles : GameBehaviour
     {
         public float timer = 3f;
         public float speed = 5f;
+        
 
         void Start()
         {
-            Invoke("Die", timer);
+            Invoke("DestroyProjectile", 3);
         }
 
         void Update()
@@ -18,11 +19,20 @@ namespace Prototype3
             transform.position += transform.forward * speed * Time.deltaTime;
         }
 
-
-
-        void Die()
+        public void DestroyProjectile()
         {
             Destroy(gameObject);
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Target"))
+            {
+                if (collision.gameObject.GetComponent<Target>() != null)
+                    collision.gameObject.GetComponent<Target>();
+            }
+            DestroyProjectile();
+        }
+
     }
 }

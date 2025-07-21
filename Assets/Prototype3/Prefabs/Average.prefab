@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3949595110089992197}
   - component: {fileID: 9106255933060501495}
   m_Layer: 0
-  m_Name: Target
+  m_Name: Average
   m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
