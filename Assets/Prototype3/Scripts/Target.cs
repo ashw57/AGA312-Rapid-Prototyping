@@ -1,69 +1,64 @@
 using Prototype3;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-
-public class Target : GameBehaviour
+namespace Prototype3
 {
-    [Header("Basics")]
-    public TargetType myType;
-
-    private float mySpeed = 5;
-    private int myScore;
-
-    private Transform bounce;
-    private float bounceSpeed = 5;
-
-    private Transform moveToPos;
-    private TargetState myState;
-    private Vector3 moveDirection = Vector3.forward;
-
-    public int MyScore => myScore;
-
-    private void Update()
+    public enum TargetType
     {
-        if (myState == TargetState.Moving)
-        {
-            transform.Translate(moveDirection * mySpeed * Time.deltaTime);
-        }
+        Slow = 1, Average = 2, Fast = 3
     }
-    public void Initialize(Transform _startPos, string _name)
+    public class Target : GameBehaviour
     {
-        transform.position = _startPos.position;
-        gameObject.name = _name;
+        [SerializeField]
+        float moveSpeed = 5f;
 
+        [SerializeField]
+        TargetType targetType = TargetType.Average;
 
-        switch (myType)
+        private Transform[] wayPoints;  
+
+        private int currentWayPoint = 0;
+        private Rigidbody rigidB;
+
+        private void Start()
         {
-            case TargetType.Slow:
-                mySpeed = 1;
-                myScore = 5;
-                break;
-
-            case TargetType.Average:
-                mySpeed = 2;
-                myScore = 10;
-                break;
-
-            case TargetType.Fast:
-                mySpeed = 3;
-                myScore = 15;
-                break;
-
-            default:
-                mySpeed = 1;
-                myScore = 10;
-                break;
+            rigidB = GetComponent<Rigidbody>();
         }
 
-        myState = TargetState.Moving;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Wall"))
+        private void Update()
         {
-            moveDirection = -moveDirection;
+            if (wayPoints == null || wayPoints.Length == 0)
+                return; 
+
+            Movement();
+        }
+
+        public void SetWayPoints(Transform[] wayPoints)
+        {
+            this.wayPoints = wayPoints;
+            currentWayPoint = 0;
+        }
+
+        void Movement()
+        {
+            Vector3 targetPos = wayPoints[currentWayPoint].position;
+            Vector3 dir = (targetPos - transform.position).normalized;
+            rigidB.MovePosition(transform.position + dir * moveSpeed * Time.deltaTime);
+
+            // Check if close enough to current waypoint to move to next
+            if (Vector3.Distance(transform.position, targetPos) < 0.25f)
+            {
+                currentWayPoint++;
+                if (currentWayPoint >= wayPoints.Length)
+                    currentWayPoint = 0; // Loop path
+            }
+        }
+
+        public void Die()
+        {
+            int scoreValue = (int)targetType;
+            GameManager.instance.AddScore(1);
+            Destroy(gameObject);
         }
     }
 }

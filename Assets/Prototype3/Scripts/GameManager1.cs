@@ -4,51 +4,81 @@ using UnityEngine.SceneManagement;
 
 namespace Prototype3
 {
-    public enum GameState { Start, Playing, Paused, GameOver}
-
-    public enum TargetState { Alive, Die,
-        Moving
-    }
+    public enum GameState { Start, Playing, Paused, GameOver }
 
     public class GameManager : Singleton<GameManager>
     {
-       // [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private TextMeshProUGUI gameOverText;
-        //[SerializeField] private TextMeshProUGUI timer;
+       [SerializeField] private TextMeshProUGUI gameOverText;
         [SerializeField] private GameObject gameOverUI;
-
         [SerializeField] private GameState gameState;
         [SerializeField] private int score;
 
         public GameState GameState => gameState;
 
-        public float timeRemaining = 60;
+        public float timeRemaining = 60f;
 
         private bool gameEnded = false;
 
+        public static GameManager Instance { get; private set; }
+
+        void Start()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            gameState = GameState.Playing;
+        }
+
+        private void Update()
+        {
+            if (!gameEnded && gameState == GameState.Playing)
+            {
+                timeRemaining -= Time.deltaTime;
+                if (timeRemaining <= 0f)
+                {
+                    timeRemaining = 0f;
+                    GameOver();
+                }
+                _UI?.UpdateTimer(timeRemaining);
+            }
+        }
+
         public void GameOver()
         {
+            if (gameEnded) return;
+
             gameEnded = true;
-
             gameOverText.gameObject.SetActive(true);
-            gameOverUI.gameObject.SetActive(true);
+            gameOverUI.SetActive(true);
 
-            if (timeRemaining <= 0)
-            {
-                Time.timeScale = 0;
-            }
+            Time.timeScale = 0f;
+            gameState = GameState.GameOver;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         public void Restart()
         {
-            Time.timeScale = 1;
-
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         public void Pause()
         {
-            Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+            if (gameEnded) return;
+
+            if (Time.timeScale == 0f)
+            {
+                Time.timeScale = 1f;
+                gameState = GameState.Playing;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+                gameState = GameState.Paused;
+            }
         }
 
         public void Quit()
@@ -59,7 +89,7 @@ namespace Prototype3
         public void AddScore(int _score)
         {
             score += _score;
-            _UI.UpdateScore(score);
+            _UI?.UpdateScore(score);
         }
     }
 

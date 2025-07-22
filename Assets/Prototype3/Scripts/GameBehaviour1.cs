@@ -13,8 +13,6 @@ namespace Prototype3
 
         protected static GameManager _GM { get { return GameManager.instance; } }
 
-        protected static TargetManager _TM { get { return TargetManager.instance; } }
-
         protected static CharacterController _CHARACTER { get { return CharacterController.instance; } }
 
         protected static UIManager _UI { get { return UIManager.instance; } }

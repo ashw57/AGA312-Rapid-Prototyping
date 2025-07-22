@@ -7,7 +7,7 @@ namespace Prototype3
     {
         public float timer = 3f;
         public float speed = 5f;
-        
+
 
         void Start()
         {
@@ -28,11 +28,14 @@ namespace Prototype3
         {
             if (collision.gameObject.CompareTag("Target"))
             {
-                if (collision.gameObject.GetComponent<Target>() != null)
-                    collision.gameObject.GetComponent<Target>();
+                Target target = collision.gameObject.GetComponent<Target>();
+                if (target != null)
+                {
+                    target.Die();
+                }
             }
+
             DestroyProjectile();
         }
-
     }
 }

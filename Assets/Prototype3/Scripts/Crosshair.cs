@@ -13,7 +13,7 @@ namespace Prototype3
 
         public void Lookheight(float value)
         {
-            lookHeight += value;
+            lookHeight = Mathf.Clamp(value, minAngle,maxAngle);
 
             if(lookHeight > maxAngle || lookHeight < minAngle)
             {
