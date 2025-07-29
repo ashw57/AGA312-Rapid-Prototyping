@@ -1,23 +1,42 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 
 namespace Prototype4
 {
 
     public class EquationGenerator : MonoBehaviour
     {
+        [Header("Symbol Prefabs")]
+        public GameObject plusPrefab;
+        public GameObject minusPrefab;
+        public GameObject multiplyPrefab;
+        public GameObject dividePrefab;
+
+        public Transform symbolSpawnPoint;
+
         public enum Difficulty { EASY, MEDIUM, HARD }
         public Difficulty difficulty;
 
-        public BV.Range easyRange;
-        public BV.Range mediumRange;
-        public BV.Range hardRange;
+        public Range easyRange;
+        public Range mediumRange;
+        public Range hardRange;
 
         public int numberOne;
         public int numberTwo;
         public int correctAnswer;
         public List<int> dummyAnswers;
+
+        [SerializeField] private TextMeshProUGUI feedbackTextCorrect;
+        [SerializeField] private TextMeshProUGUI feedbackTextIncorrect;
+        [SerializeField] private float answerSpacing = 2f;
+
+        public void GenerateAddition() => GenerateEquation((a, b) => a + b, "+");
+        public void GenerateSubtraction() => GenerateEquation((a, b) => a - b, "-");
+        public void GenerateMultiplication() => GenerateEquation((a, b) => a * b, "x");
+
 
         [Header("Prefabs and Spawn Points")]
         public GameObject numberOnePrefab;
@@ -30,70 +49,45 @@ namespace Prototype4
 
         private List<GameObject> spawnedObjects = new List<GameObject>();
 
-        void Update()
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.M))
-                GenerateMultiplication();
+            GenerateRandomEquation();
         }
 
-        public void GenerateMultiplication()
+        private void GenerateEquation(Func<int, int, int> operation, string symbol)
         {
+            dummyAnswers.Clear();
             ClearPreviousObjects();
             GenerateRandomNumbers();
-            correctAnswer = numberOne * numberTwo;
-            GenerateDummyAnswers();
-
-            Debug.Log(numberOne + " x " + numberTwo + " = " + correctAnswer);
+            correctAnswer = operation(numberOne, numberTwo);
+            Debug.Log($"{numberOne} {symbol} {numberTwo} = {correctAnswer}");
 
             InstantiateNumber(numberOnePrefab, numberOne, numberOneSpawnPoint);
+            InstantiateSymbol(symbol, symbolSpawnPoint);
             InstantiateNumber(numberTwoPrefab, numberTwo, numberTwoSpawnPoint);
-            InstantiateNumber(answerPrefab, correctAnswer, answerSpawnPoint);
-        }
-
-        public void GenerateAddition()
-        {
-            ClearPreviousObjects();
-            GenerateRandomNumbers();
-            correctAnswer = numberOne + numberTwo;
             GenerateDummyAnswers();
-
-            Debug.Log(numberOne + " + " + numberTwo + " = " + correctAnswer);
-
-            InstantiateNumber(numberOnePrefab, numberOne, numberOneSpawnPoint);
-            InstantiateNumber(numberTwoPrefab, numberTwo, numberTwoSpawnPoint);
-            InstantiateNumber(answerPrefab, correctAnswer, answerSpawnPoint);
-        }
-
-        public void GenerateSubtraction()
-        {
-            ClearPreviousObjects();
-            GenerateRandomNumbers();
-            correctAnswer = numberOne - numberTwo;
-            GenerateDummyAnswers();
-
-            Debug.Log(numberOne + " - " + numberTwo + " = " + correctAnswer);
-
-            InstantiateNumber(numberOnePrefab, numberOne, numberOneSpawnPoint);
-            InstantiateNumber(numberTwoPrefab, numberTwo, numberTwoSpawnPoint);
-            InstantiateNumber(answerPrefab, correctAnswer, answerSpawnPoint);
         }
 
         public void GenerateDivision()
         {
+            dummyAnswers.Clear();
             ClearPreviousObjects();
-            GenerateRandomNumbers();
+
+            numberTwo = GetRandomNumber();
             while (numberTwo == 0)
                 numberTwo = GetRandomNumber();
 
-            float tempAnswer = numberOne / numberTwo;
-            correctAnswer = Mathf.RoundToInt(tempAnswer);
-            GenerateDummyAnswers();
+            int multiplier = GetRandomNumber();
+            numberOne = numberTwo * multiplier;
+            correctAnswer = numberOne / numberTwo;
 
-            Debug.Log(numberOne + " / " + numberTwo + " = " + correctAnswer);
+            Debug.Log(numberOne + " ÷ " + numberTwo + " = " + correctAnswer);
 
             InstantiateNumber(numberOnePrefab, numberOne, numberOneSpawnPoint);
+            InstantiateSymbol("÷", symbolSpawnPoint);
             InstantiateNumber(numberTwoPrefab, numberTwo, numberTwoSpawnPoint);
-            InstantiateNumber(answerPrefab, correctAnswer, answerSpawnPoint);
+
+            GenerateDummyAnswers();
         }
 
         private void GenerateRandomNumbers()
@@ -107,28 +101,50 @@ namespace Prototype4
             switch (difficulty)
             {
                 case Difficulty.EASY:
-                    return (int)Random.Range(easyRange.min, easyRange.max);
+                    return (int)UnityEngine.Random.Range(easyRange.min, easyRange.max);
                 case Difficulty.MEDIUM:
-                    return (int)Random.Range(mediumRange.min, mediumRange.max);
+                    return (int)UnityEngine.Random.Range(mediumRange.min, mediumRange.max);
                 case Difficulty.HARD:
-                    return (int)Random.Range(hardRange.min, hardRange.max);
+                    return (int)UnityEngine.Random.Range(hardRange.min, hardRange.max);
                 default:
-                    return (int)Random.Range(easyRange.min, easyRange.max);
+                    return (int)UnityEngine.Random.Range(easyRange.min, easyRange.max);
             }
         }
 
         private void GenerateDummyAnswers()
         {
-            for (int i = 0; i < dummyAnswers.Count; i++)
+            dummyAnswers.Clear();
+
+            List<int> allAnswers = new List<int>();
+            allAnswers.Add(correctAnswer);
+
+            while (allAnswers.Count < 4)
             {
-                int dummy;
-                do
+                int dummy = UnityEngine.Random.Range(Mathf.Max(0, correctAnswer - 10), correctAnswer + 11);
+                if (dummy != correctAnswer && !allAnswers.Contains(dummy))
+                    allAnswers.Add(dummy);
+            }
+
+            allAnswers = allAnswers.OrderBy(_ => UnityEngine.Random.value).ToList();
+
+            for (int i = 0; i < allAnswers.Count; i++)
+            {
+                Vector3 spawnPosition = answerSpawnPoint.position + new Vector3(i * answerSpacing, 0, 0);
+                GameObject answerObj = Instantiate(answerPrefab, spawnPosition, Quaternion.identity);
+                answerObj.name = "Answer_" + allAnswers[i];
+                spawnedObjects.Add(answerObj);
+
+                var tmp = answerObj.GetComponentInChildren<TextMeshPro>();
+                if (tmp != null)
                 {
-                    dummy = Random.Range(correctAnswer - 10, correctAnswer + 10);
+                    tmp.text = allAnswers[i].ToString();
                 }
-                while (dummy == correctAnswer || dummyAnswers.Contains(dummy));
-                dummyAnswers[i] = dummy;
-                Debug.Log("Dummy Answer: " + dummyAnswers[i]);
+
+                AnswerButton3D button = answerObj.GetComponent<AnswerButton3D>();
+                if (button != null)
+                {
+                    button.Setup(allAnswers[i], correctAnswer, this, feedbackTextCorrect, feedbackTextIncorrect);
+                }
             }
         }
 
@@ -144,11 +160,32 @@ namespace Prototype4
             obj.name = "Number_" + number;
             spawnedObjects.Add(obj);
 
-            var tmp = obj.GetComponentInChildren<TextMeshProUGUI>();
+            var tmp = obj.GetComponentInChildren<TextMeshPro>();
             if (tmp != null)
             {
                 tmp.text = number.ToString();
                 return;
+            }
+        }
+
+        public void GenerateRandomEquation()
+        {
+            int random = UnityEngine.Random.Range(0, 4); 
+
+            switch (random)
+            {
+                case 0:
+                    GenerateAddition();
+                    break;
+                case 1:
+                    GenerateSubtraction();
+                    break;
+                case 2:
+                    GenerateMultiplication();
+                    break;
+                case 3:
+                    GenerateDivision();
+                    break;
             }
         }
 
@@ -160,6 +197,40 @@ namespace Prototype4
                     Destroy(obj);
             }
             spawnedObjects.Clear();
+        }
+
+        private GameObject GetSymbolPrefab(string symbol)
+        {
+            switch (symbol)
+            {
+                case "+":
+                    return plusPrefab;
+                case "-":
+                    return minusPrefab;
+                case "x":
+                case "*":
+                    return multiplyPrefab;
+                case "/":
+                case "÷":
+                    return dividePrefab;
+                default:
+                    Debug.LogWarning("Symbol prefab not assigned for symbol: " + symbol);
+                    return null;
+            }
+        }
+
+        private void InstantiateSymbol(string symbol, Transform spawnPoint)
+        {
+            GameObject prefab = GetSymbolPrefab(symbol);
+            if (prefab == null || spawnPoint == null)
+            {
+                Debug.LogWarning("Prefab or spawn point not assigned.");
+                return;
+            }
+
+            GameObject obj = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+            obj.name = "Symbol_" + symbol;
+            spawnedObjects.Add(obj);
         }
     }
 }
