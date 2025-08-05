@@ -89,4 +89,9 @@ public class EquationGenerator : MonoBehaviour
             Debug.Log("Dummy Answer: " + dummyAnswers[i]);
         }
     }
+
+    internal string GetCorrectAnswerCount()
+    {
+        throw new System.NotImplementedException();
+    }
 }

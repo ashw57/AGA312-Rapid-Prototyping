@@ -9,7 +9,7 @@ namespace Prototype4
         public int value;
         private int correctValue;
         private EquationGenerator generator;
-        private TextMeshProUGUI feedbackText;
+
         [SerializeField] private TextMeshProUGUI feedbackTextIncorrect;
         [SerializeField] private TextMeshProUGUI feedbackTextCorrect;
 
@@ -25,11 +25,14 @@ namespace Prototype4
 
         private void OnMouseDown()
         {
-            GetComponent<Renderer>().material.color = Color.green;
             if (value == correctValue)
             {
-                if (feedbackText != null)
+                GetComponent<Renderer>().material.color = Color.green;
+
+                if (feedbackTextCorrect != null)
                     feedbackTextCorrect.text = "Correct!";
+
+                generator.OnCorrectAnswer();
 
                 StartCoroutine(NextQuestionWithDelay());
             }
@@ -39,6 +42,9 @@ namespace Prototype4
 
                 if (feedbackTextIncorrect != null)
                     feedbackTextIncorrect.text = "Wrong. Try again!";
+
+                // Remove a reward on incorrect answer
+                generator.RemoveReward();
             }
         }
 
