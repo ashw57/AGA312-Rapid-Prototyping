@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Prototype 4 - ???
+  m_text: 'Prototype 4 - Maths
 
 '
   m_isRightToLeft: 0
@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 66766887}
   - component: {fileID: 66766886}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Prototype1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 247391154}
   - component: {fileID: 247391153}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -977,7 +977,7 @@ GameObject:
   - component: {fileID: 267215279}
   - component: {fileID: 267215278}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: Prototype5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1859,7 +1859,7 @@ GameObject:
   - component: {fileID: 1077725159}
   - component: {fileID: 1077725158}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Prototype2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2038,7 +2038,7 @@ GameObject:
   - component: {fileID: 1754236925}
   - component: {fileID: 1754236924}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Prototype3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2493,7 +2493,7 @@ GameObject:
   - component: {fileID: 2031733173}
   - component: {fileID: 2031733172}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: Prototype4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

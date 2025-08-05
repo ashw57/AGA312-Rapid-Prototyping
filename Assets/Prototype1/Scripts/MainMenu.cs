@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Prototype2
+namespace Prototype1
 {
     public class MainMenu : MonoBehaviour
     {

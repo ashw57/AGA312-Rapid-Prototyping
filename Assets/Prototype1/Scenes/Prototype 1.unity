@@ -684,11 +684,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &487252314 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1742899641471652, guid: 923deea38dc6a8843b15db7638919c1e, type: 3}
-  m_PrefabInstance: {fileID: 1891881520}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &737176712
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,9 +717,9 @@ MonoBehaviour:
   - {fileID: 8812604375026194601, guid: 50e9abc8e58890941868b320763820fe, type: 3}
   - {fileID: 8812604375026194601, guid: 9e67f87a01de3f14aa30ed9cce9cf7d3, type: 3}
   - {fileID: 8812604375026194601, guid: e430f5fb30251f040b7037f19b8af90e, type: 3}
+  pickupPrefab: []
   enemyCount: 0
   waveNumber: 1
-  powerupPrefab: {fileID: 2200425737034895691, guid: 13c6de7ec7c75e7479e079b3da9c2d9f, type: 3}
 --- !u!4 &737176714
 Transform:
   m_ObjectHideFlags: 0
@@ -1649,7 +1644,6 @@ GameObject:
   - component: {fileID: 1698898947}
   - component: {fileID: 1698898946}
   - component: {fileID: 1698898945}
-  - component: {fileID: 1698898950}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1773,22 +1767,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1698898950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698898944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7347c0d7eea42848936dde457c9cb45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasPowerup: 0
-  powerupIndicator: {fileID: 487252314}
-  speed: 2
-  threshold: -10
 --- !u!1 &1750662360
 GameObject:
   m_ObjectHideFlags: 0

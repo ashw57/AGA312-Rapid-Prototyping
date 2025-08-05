@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class RotateCamera : MonoBehaviour
+namespace Prototype1 
 {
-    public float rotationSpeed;
-    void Start()
+    public class RotateCamera : MonoBehaviour
     {
-        
-    }
+        public float rotationSpeed;
+        void Start()
+        {
 
-    void Update()
-    {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
+        }
+
+        void Update()
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
+        }
     }
 }
