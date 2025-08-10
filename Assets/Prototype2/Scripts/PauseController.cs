@@ -15,12 +15,16 @@ namespace Prototype2
                 pausePanel.SetActive(paused);
 
             Time.timeScale = 1;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Pause();
+
         }
 
         public void Pause()
@@ -31,6 +35,9 @@ namespace Prototype2
                 pausePanel.SetActive(paused);
 
             Time.timeScale = paused ? 0 : 1;
+
+            Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = paused;
         }
 
         public void ResumeGame()
@@ -41,6 +48,9 @@ namespace Prototype2
                 pausePanel.SetActive(false);
 
             Time.timeScale = 1;
+
+            Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = paused;
         }
 
         public void RestartGame()

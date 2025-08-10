@@ -5,46 +5,39 @@ namespace Prototype2
 {
     public class CameraFollow : MonoBehaviour
     {
-        public Transform player;               // The player to follow
-        public Vector3 offset = new Vector3(0, 5, -7);  // Offset from the player
-        public float smoothSpeed = 0.125f; // Smoothness of the follow
-        public float mouseSensitivity = 2f;
-        public float verticalClamp = 80f;
+        [SerializeField]
+        private float _mouseSensitivity = 3.0f;
 
-        private float rotationX = 20f;
-        private float rotationY = 0f;
+        private float _rotationY;
+        private float _rotationX;
 
-        void Start()
+        [SerializeField]
+        private Transform _target;
+
+        [SerializeField]
+        private float _distanceFromTarget = 3.0f;
+
+        private Vector3 _currentRotation;
+        private Vector3 _smoothVelocity = Vector3.zero;
+
+        [SerializeField]
+        private float _smoothTime = 0.2f;
+
+        private void Update()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+            float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
 
-        void LateUpdate()
-        {
-            if (player == null) return;
+            _rotationY += mouseX;
+            _rotationX -= mouseY;
 
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+            _rotationX = Mathf.Clamp(_rotationX, -40, 40);
 
-            rotationY += mouseX;
-            rotationX -= mouseY;
+            Vector3 nextRotation = new Vector3(_rotationX, _rotationY);
+            _currentRotation = Vector3.SmoothDamp(_currentRotation, nextRotation, ref _smoothVelocity, _smoothTime);
+            transform.localEulerAngles = _currentRotation;
 
-            rotationX = Mathf.Clamp(rotationX, -verticalClamp, verticalClamp);
-
-            Quaternion rotation = Quaternion.Euler(rotationX, rotationY, 0);
-
-            Vector3 rotatedOffset = rotation * offset;
-
-            // Calculate the desired position
-            Vector3 desiredPosition = player.position + rotatedOffset;
-
-            // Smooth position
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            transform.position = smoothedPosition;
-
-            // Always look at the player
-            transform.LookAt(player);
+            transform.position = _target.position - transform.forward * _distanceFromTarget;
         }
     }
 }
