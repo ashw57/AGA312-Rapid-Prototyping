@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEditor.Build.Reporting;
 
 namespace Prototype2
 {
@@ -86,11 +87,6 @@ namespace Prototype2
             Time.timeScale = 1;
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
-        public void Quit()
-        {
-            Application.Quit();
         }
     }
 }

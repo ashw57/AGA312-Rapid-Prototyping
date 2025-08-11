@@ -59,15 +59,9 @@ namespace Prototype2
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        public void QuitGame()
+        public void Quit()
         {
-            Time.timeScale = 1; 
-            Debug.Log("Quitting Game...");
-            Application.Quit();
-
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false; 
-#endif
+            SceneManager.LoadScene("Title");
         }
     }
 }

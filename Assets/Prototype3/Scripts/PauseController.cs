@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+using UnityEngine.SceneManagement;
 using UnityEngine;
  namespace Prototype3
 {
@@ -10,23 +10,57 @@ using UnityEngine;
         void Start()
         {
             paused = false;
-            pausePanel.SetActive(paused);
+            if (pausePanel != null)
+                pausePanel.SetActive(paused);
+
             Time.timeScale = 1;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Pause();
+
         }
 
         public void Pause()
         {
             paused = !paused;
-            pausePanel.SetActive(paused);
-            //? = Return | : = else
-            Cursor.visible = paused;
+
+            if (pausePanel != null)
+                pausePanel.SetActive(paused);
+
             Time.timeScale = paused ? 0 : 1;
+
+            Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = paused;
+        }
+
+        public void ResumeGame()
+        {
+            paused = false;
+
+            if (pausePanel != null)
+                pausePanel.SetActive(false);
+
+            Time.timeScale = 1;
+
+            Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = paused;
+        }
+
+        public void RestartGame()
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        public void Quit()
+        {
+            SceneManager.LoadScene("Title");
         }
     }
 

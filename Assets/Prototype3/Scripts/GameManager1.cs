@@ -83,7 +83,7 @@ namespace Prototype3
 
         public void Quit()
         {
-            Application.Quit();
+            SceneManager.LoadScene("Title");
         }
 
         public void AddScore(int _score)
