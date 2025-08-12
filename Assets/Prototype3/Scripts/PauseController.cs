@@ -48,8 +48,8 @@ using UnityEngine;
 
             Time.timeScale = 1;
 
-            Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = paused;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         public void RestartGame()

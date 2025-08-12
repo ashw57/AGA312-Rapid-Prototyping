@@ -56,15 +56,23 @@ namespace Prototype3 {
         {
             isRunning = false;
         }
-
         void OnTimerEnd()
         {
             Debug.Log("Time's up!");
 
             if (gameOverScreen != null)
-            {
                 gameOverScreen.SetActive(true);
-            }
+
+            
+            Time.timeScale = 0;
+
+            
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            
+            if (CharacterController.instance != null)
+                CharacterController.instance.enabled = false;
         }
     }
 }

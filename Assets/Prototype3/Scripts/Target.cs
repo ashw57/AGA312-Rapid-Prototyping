@@ -57,7 +57,7 @@ namespace Prototype3
         public void Die()
         {
             int scoreValue = (int)targetType;
-            GameManager.instance.AddScore(1);
+           // GameManager.instance.AddScore(1);
             Destroy(gameObject);
         }
     }

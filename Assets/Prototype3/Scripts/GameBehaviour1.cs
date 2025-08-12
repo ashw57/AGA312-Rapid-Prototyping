@@ -9,7 +9,6 @@ namespace Prototype3
 
     public class GameBehaviour : MonoBehaviour
     {
-        public GameState _CurrentGameState => GameManager.instance.GameState;
 
         protected static GameManager _GM { get { return GameManager.instance; } }
 

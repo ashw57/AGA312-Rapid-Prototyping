@@ -5,7 +5,6 @@ namespace Prototype2
     public class SpawnManager : MonoBehaviour
     {
         public GameObject[] enemyPrefab;
-        public GameObject[] pickupPrefab;
 
         private float spawnRange = 9.0f;
 
@@ -15,7 +14,6 @@ namespace Prototype2
         void Start()
         {
             SpawnEnemyWave(waveNumber);
-            SpawnPickups(waveNumber);
         }
 
         void Update()
@@ -26,18 +24,10 @@ namespace Prototype2
                 waveNumber++; 
                 
                 SpawnEnemyWave(waveNumber);
-                SpawnPickups(waveNumber);
             }
         }
 
-        void SpawnPickups(int pickupsToSpawn)
-        {
-            for (int i = 0; i < pickupsToSpawn; i++)
-            {
-                int randomPickup = Random.Range(0, pickupPrefab.Length);
-                Instantiate(pickupPrefab[randomPickup], GenerateSpawnPosition(), Quaternion.identity);
-            }
-        }
+
         void SpawnEnemyWave(int enemiesToSpawn)
         {
             for (int i = 0; i < enemiesToSpawn; i++)
