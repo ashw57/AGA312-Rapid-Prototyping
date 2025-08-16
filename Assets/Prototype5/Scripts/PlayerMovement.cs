@@ -7,41 +7,55 @@ namespace Prototype5
         [SerializeField] private float speed;
         [SerializeField] private float jumpHeight = 5f;
 
+        private Animator anim;
+
         private bool IsGrounded;
         private Rigidbody2D body;
 
         private void Awake()
         {
+
             body = GetComponent<Rigidbody2D>();
+            anim = GetComponent<Animator>();
 
         }
 
         private void Update()
         {
-            body.linearVelocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.linearVelocity.y);
+            float horizontalInput = Input.GetAxis("Horizontal");
+            body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+
+            //Flip player sprite when moving left and right
+            if (horizontalInput> 0.01f)
+                transform.localScale = Vector3.one;
+            else if (horizontalInput > -0.01f)
+                transform.localScale = new Vector3(-1, 1, 1);
+
 
             if (Input.GetKey(KeyCode.Space) && IsGrounded == true)
             {
-                body.linearVelocity = new Vector2(body.linearVelocity.x, jumpHeight * speed);
+                Jump();
             }
+
+            //Set animator parameters
+            anim.SetBool("Run", horizontalInput != 0);
+            anim.SetBool("Grounded", IsGrounded);
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void Jump()
         {
-            if (other.gameObject.CompareTag("Ground"))
+            body.linearVelocity = new Vector2 (body.linearVelocity.x, jumpHeight * speed);
+            anim.SetTrigger("Jump");
+            IsGrounded = false;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.tag == "Ground")
             {
                 IsGrounded = true;
             }
         }
-
-        private void OnCollisionExit2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Ground"))
-            {
-                IsGrounded = false;
-            }
-        }
-
     }
 
 }
