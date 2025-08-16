@@ -9,7 +9,6 @@ namespace Prototype5
 
         private Animator anim;
 
-        private bool IsGrounded;
         private Rigidbody2D body;
 
         private void Awake()
@@ -32,29 +31,33 @@ namespace Prototype5
                 transform.localScale = new Vector3(-1, 1, 1);
 
 
-            if (Input.GetKey(KeyCode.Space) && IsGrounded == true)
+            if (Input.GetKey(KeyCode.Space) && IsGrounded())
             {
                 Jump();
             }
 
             //Set animator parameters
             anim.SetBool("Run", horizontalInput != 0);
-            anim.SetBool("Grounded", IsGrounded);
+            anim.SetBool("Grounded", IsGrounded());
         }
 
         private void Jump()
         {
             body.linearVelocity = new Vector2 (body.linearVelocity.x, jumpHeight * speed);
             anim.SetTrigger("Jump");
-            IsGrounded = false;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.tag == "Ground")
             {
-                IsGrounded = true;
+
             }
+        }
+
+        private bool IsGrounded()
+        {
+            return false;
         }
     }
 
