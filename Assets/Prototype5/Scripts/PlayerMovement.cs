@@ -8,11 +8,11 @@ namespace Prototype5
         [SerializeField] private float jumpPower;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask wallLayer;
+        [SerializeField] private float wallJumpCooldown;
 
         private Animator anim;
         private BoxCollider2D boxCollider;
-        private Rigidbody2D body;
-        private float wallJumpCooldown;
+        private Rigidbody2D body;       
         private float horizontalInput;
 
         private void Awake()
@@ -47,7 +47,7 @@ namespace Prototype5
 
                 if (OnWall() && !IsGrounded())
                 {
-                    body.gravityScale = 0;
+                    body.gravityScale = 2;
                     body.linearVelocity = Vector2.zero;
                 }
                 else
@@ -74,11 +74,12 @@ namespace Prototype5
             {
                 if(horizontalInput == 0)
                 {
+                    anim.SetTrigger("Climb");
                     body.linearVelocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
                     transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 }
                 else
-                    body.linearVelocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 2, 4);
+                    body.linearVelocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 4, 7);
 
                 wallJumpCooldown = 0;
             }
@@ -91,13 +92,13 @@ namespace Prototype5
         private bool IsGrounded()
         {
             RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
-            return raycastHit.collider != null; ;
+            return raycastHit.collider != null; 
         }
 
         private bool OnWall()
         {
             RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
-            return raycastHit.collider != null; ;
+            return raycastHit.collider != null; 
         }
     }
 
