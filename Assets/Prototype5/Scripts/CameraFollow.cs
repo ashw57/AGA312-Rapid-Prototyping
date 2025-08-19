@@ -7,13 +7,18 @@ namespace Prototype5
         [SerializeField] private Transform player;
         [SerializeField] private float aheadDistance;
         [SerializeField] private float cameraSpeed;
+        [SerializeField] private float verticalFollowSpeed = 2f;
+        [SerializeField] private float verticalOffset = 2f;
         private float lookAhead;
 
 
         private void Update()
-        {
-            transform.position = new Vector3(player.position.x * lookAhead, transform.position.y, transform.position.z);
+        {            
             lookAhead = Mathf.Lerp(lookAhead, (aheadDistance * transform.localScale.x), Time.deltaTime * cameraSpeed);
+
+            float targetY = Mathf.Lerp(transform.position.y, player.position.y + verticalOffset, Time.deltaTime * verticalFollowSpeed);
+
+            transform.position = new Vector3(player.position.x * lookAhead, targetY, transform.position.z);
         }
 
 
