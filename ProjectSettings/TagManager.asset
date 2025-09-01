@@ -20,7 +20,7 @@ TagManager:
   - UI
   - Ground
   - Wall
-  - 
+  - MiniMap
   - 
   - 
   - 
@@ -48,6 +48,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Behind Background
+    uniqueID: 1216672695
+    locked: 0
   - name: Background
     uniqueID: 776285273
     locked: 0
@@ -62,6 +65,12 @@ TagManager:
     locked: 0
   - name: Infront of Foreground Details
     uniqueID: 3432923045
+    locked: 0
+  - name: Minimap RenderLayer
+    uniqueID: 2235111657
+    locked: 0
+  - name: Infront of Foreground but Behind Details
+    uniqueID: 2452180821
     locked: 0
   m_RenderingLayers:
   - Default

@@ -8,10 +8,14 @@ namespace Prototype5
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.tag == "Player")
+            if(collision.CompareTag("Player"))
             {
-                collision.GetComponent<Health>().AddHealth(healthValue);
-                gameObject.SetActive(false);
+                Health playerHealth = collision.GetComponent<Health>();
+                if (playerHealth != null)
+                {
+                    playerHealth.AddHealth(healthValue);
+                    Destroy(gameObject);
+                }                
             }
         }
     }

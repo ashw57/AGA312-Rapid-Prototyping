@@ -10,9 +10,13 @@ namespace Prototype5
         [SerializeField] private LayerMask wallLayer;
         [SerializeField] private float wallJumpCooldown;
 
+        [SerializeField] private float fallMultiplier = 2.5f;
+        [SerializeField] private float lowJumpMultiplier = 2f;
+        [SerializeField] private float wallJumpResetTime = 0.2f;
+
         private Animator anim;
         private BoxCollider2D boxCollider;
-        private Rigidbody2D body;       
+        private Rigidbody2D body;
         private float horizontalInput;
 
         private void Awake()
@@ -40,26 +44,33 @@ namespace Prototype5
             anim.SetBool("Grounded", IsGrounded());
 
             //Wall jump logic
-            if (wallJumpCooldown < 0.2f)
+            if (wallJumpCooldown > wallJumpResetTime)
             {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Jump();
+                }
 
                 body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
 
                 if (OnWall() && !IsGrounded())
                 {
-                    body.gravityScale = 2;
-                    body.linearVelocity = Vector2.zero;
+                    body.gravityScale = 1;
+                    body.linearVelocity = new Vector2(body.linearVelocity.x, Mathf.Max(body.linearVelocity.y, -2f));
                 }
                 else
-                    body.gravityScale = 3;
-
-                if (Input.GetKey(KeyCode.Space))
                 {
-                    Jump();
-                }
+                    body.gravityScale = 3;
+                }                    
+
             }
             else
                 wallJumpCooldown += Time.deltaTime;
+
+            if (body.linearVelocity.y < 0)
+                body.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            else if (body.linearVelocity.y > 0 && !Input.GetKey(KeyCode.Space))
+                body.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
 
         }
 
@@ -67,38 +78,34 @@ namespace Prototype5
         {
             if (IsGrounded())
             {
+                wallJumpCooldown = wallJumpResetTime;
+
                 body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
                 anim.SetTrigger("Jump");
             }
-            else if(OnWall() && !IsGrounded())
+            else if (OnWall() && !IsGrounded())
             {
-                if(horizontalInput == 0)
-                {
-                    anim.SetTrigger("Climb");
-                    body.linearVelocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
-                    transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-                }
-                else
-                    body.linearVelocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 4, 7);
+                float jumpDirection = -Mathf.Sign(transform.localScale.x);
 
+                body.linearVelocity = new Vector2(jumpDirection * 6f, 7f);
                 wallJumpCooldown = 0;
+
+                transform.localScale = new Vector3(jumpDirection, transform.localScale.y, transform.localScale.z);
+                anim.SetTrigger("Jump");
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-        }
 
         private bool IsGrounded()
         {
             RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
-            return raycastHit.collider != null; 
+            return raycastHit.collider != null;
         }
 
         private bool OnWall()
         {
             RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
-            return raycastHit.collider != null; 
+            return raycastHit.collider != null;
         }
     }
 
