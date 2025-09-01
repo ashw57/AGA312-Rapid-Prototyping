@@ -60,6 +60,9 @@ TagManager:
   - name: Platforms
     uniqueID: 2664806177
     locked: 0
+  - name: Platform Decorations
+    uniqueID: 3294679091
+    locked: 0
   - name: Foreground
     uniqueID: 93077299
     locked: 0

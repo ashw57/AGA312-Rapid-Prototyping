@@ -1,16 +1,38 @@
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 
-public class CollectablesManager : MonoBehaviour
+namespace Prototype5
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class CollectablesManager : MonoBehaviour
     {
-        
-    }
+        public static CollectablesManager Instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public int collectablesNeeded = 5;
+        public int currentCollectables = 0;
+
+        public Door doorToUnlock;
+
+        private void Awake()
+        {
+            if(Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public void Collect()
+        {
+            currentCollectables++;
+
+            if(currentCollectables >= collectablesNeeded)
+            {
+                doorToUnlock.Unlock();
+            }
+        }
     }
 }
+
