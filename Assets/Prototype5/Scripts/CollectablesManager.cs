@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
+using System.Collections.Generic;
 
 namespace Prototype5
 {
@@ -12,6 +12,7 @@ namespace Prototype5
 
         public Door doorToUnlock;
 
+        public List<FloatingCollectable> collectedItems = new List<FloatingCollectable>();
         private void Awake()
         {
             if(Instance == null)
@@ -24,13 +25,25 @@ namespace Prototype5
             }
         }
 
-        public void Collect()
+        public void Collect(FloatingCollectable collectable)
         {
             currentCollectables++;
+            collectedItems.Add(collectable);
+            UpdateOrbitSpacing();
 
             if(currentCollectables >= collectablesNeeded)
             {
                 doorToUnlock.Unlock();
+            }
+        }
+
+        private void UpdateOrbitSpacing()
+        {
+            int count = collectedItems.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                collectedItems[i].SetOrbitIndex(i, count);
             }
         }
     }
