@@ -41,12 +41,37 @@ namespace Prototype5
                     var movement = GetComponent<PlayerMovement>();
                     if (movement != null) movement.enabled = false;
                     dead = true;
+
+                    StartCoroutine(ResetPlayerAfterDelay());
                 }
 
             }
         }
 
-        public void AddHealth(float _value)
+        private IEnumerator ResetPlayerAfterDelay()
+        {
+            yield return new WaitForSeconds(2f);
+
+            ResetPlayer();
+        }
+
+        public void ResetPlayer()
+        {
+            currentHealth = startingHealth;
+            dead = false;
+
+            anim.ResetTrigger("Die");
+            anim.Play("Idle");
+
+            var movement = GetComponent<PlayerMovement>();
+            if (movement != null) movement.enabled = true;
+
+            spriteRend.color = Color.white;
+
+            transform.position = Vector3.zero;
+        }
+
+            public void AddHealth(float _value)
         {
             currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
         }

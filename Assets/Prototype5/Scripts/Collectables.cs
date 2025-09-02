@@ -9,6 +9,33 @@ namespace Prototype5
         [SerializeField] private float flyDuration = 0.5f;
         [SerializeField] private AnimationCurve flyCurve;
 
+        [SerializeField] private float floatAmplitude = 0.05f;
+        [SerializeField] private float floatFrequency = 0.8f;
+        [SerializeField] private float rotationSpeed = 20f;
+
+        private Vector3 startPos;
+        private Vector2 floatDirection;
+        private float floatOffset;
+
+        private void Start()
+        {
+            startPos = transform.position;
+            floatDirection = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(0.8f, 1.0f)).normalized;
+
+            floatOffset = Random.Range(0f, Mathf.PI * 2f);
+        }
+
+        private void Update()
+        {
+            if (!isCollected)
+            {
+                float floatAmount = Mathf.Sin(Time.time * floatFrequency) * floatAmplitude;
+                transform.position = startPos + (Vector3)(floatDirection * floatAmount);
+
+                transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (isCollected) return;
@@ -19,7 +46,6 @@ namespace Prototype5
                 StartCoroutine(FlyToPlayer(collision.transform));
             }
         }
-
 
         private System.Collections.IEnumerator FlyToPlayer(Transform player)
         {
