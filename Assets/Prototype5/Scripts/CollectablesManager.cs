@@ -34,6 +34,8 @@ namespace Prototype5
             if(currentCollectables >= collectablesNeeded)
             {
                 doorToUnlock.Unlock();
+
+                UnlockMessageUI.Instance.ShowMessage();
             }
         }
 
